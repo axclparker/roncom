@@ -787,58 +787,361 @@
         font-weight: 600;
       }
 
-      /* ── STACK ───────────────────────────────────────────── */
-      #stack {
-        padding: 80px 0;
+      /* ── MARQUEE (proyectos + testimonios) ────────────────── */
+      .marquee-wrap {
+        width: 100%;
+        overflow: hidden;
+        mask-image: linear-gradient(
+          90deg,
+          transparent,
+          black 6%,
+          black 94%,
+          transparent
+        );
+        -webkit-mask-image: linear-gradient(
+          90deg,
+          transparent,
+          black 6%,
+          black 94%,
+          transparent
+        );
       }
-      .stack-inner {
+      .marquee-track {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 40px;
-        flex-wrap: wrap;
+        gap: 18px;
+        width: max-content;
+        animation: marquee-scroll 42s linear infinite;
       }
-      .stack-left {
-        max-width: 380px;
+      .marquee-track.slow {
+        animation-duration: 56s;
       }
-      .stack-logos {
-        display: flex;
-        gap: 0;
-        flex-wrap: wrap;
-        flex: 1;
-        min-width: 300px;
-        justify-content: flex-end;
+      .marquee-wrap:hover .marquee-track {
+        animation-play-state: paused;
       }
-      .stack-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 9px;
-        padding: 20px 26px;
-        border: 1px solid var(--border);
+      @keyframes marquee-scroll {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .marquee-track {
+          animation: none;
+        }
+      }
+      .proyecto-card--marquee {
+        width: 330px;
+        flex-shrink: 0;
+      }
+      .proyecto-card--marquee .proyecto-thumb {
+        height: 170px;
+      }
+
+      /* ── TESTIMONIOS ─────────────────────────────────────── */
+      #testimonios {
+        background: var(--surface2);
+      }
+      .t-card {
+        width: 400px;
+        flex-shrink: 0;
+        background: var(--surface);
+        border: 1px solid var(--border2);
         border-radius: var(--r);
-        margin: 4px;
+        padding: 28px;
+        position: relative;
         transition:
           border-color var(--transition),
-          background var(--transition),
+          transform var(--transition),
           box-shadow var(--transition);
-        min-width: 90px;
-        background: var(--surface);
       }
-      .stack-item:hover {
+      .t-card:hover {
         border-color: rgba(34, 82, 204, 0.2);
-        background: #f5f7ff;
-        box-shadow: 0 4px 16px rgba(34, 82, 204, 0.06);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 32px rgba(34, 82, 204, 0.07);
       }
-      .stack-item svg {
+      .t-person {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+      .t-avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: var(--dark);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+      .t-person b {
+        font-family: var(--display);
+        font-size: 14.5px;
+        font-weight: 600;
+        display: block;
+        color: var(--dark);
+      }
+      .t-person span {
+        font-size: 12.5px;
+        color: var(--off);
+      }
+      .t-stars {
+        display: flex;
+        gap: 3px;
+        margin-bottom: 12px;
+      }
+      .t-stars svg {
+        width: 14px;
+        height: 14px;
+        color: var(--accent);
+      }
+      .t-card p.t-quote {
+        font-size: 14.5px;
+        line-height: 1.62;
+        color: var(--off2);
+      }
+      .t-quote-ico {
+        position: absolute;
+        bottom: 18px;
+        right: 20px;
         width: 32px;
         height: 32px;
+        border-radius: 50%;
+        background: var(--accentbg);
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 15px;
       }
-      .stack-item-name {
-        font-size: 11px;
-        font-weight: 500;
-        color: var(--off);
-        letter-spacing: 0.04em;
+
+      /* ── PRECIOS ─────────────────────────────────────────── */
+      #precios {
+        position: relative;
+        overflow: hidden;
+        background: radial-gradient(
+            ellipse 60% 70% at 15% 10%,
+            rgba(34, 82, 204, 0.18),
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse 55% 60% at 85% 90%,
+            rgba(22, 163, 74, 0.14),
+            transparent 60%
+          ),
+          linear-gradient(160deg, #0d0f14 0%, #0a0c10 100%);
+      }
+      #precios .section-label {
+        color: #8fb2f5;
+      }
+      #precios .section-label::before {
+        background: #8fb2f5;
+      }
+      #precios .section-title {
+        color: #fff;
+      }
+      #precios .section-sub {
+        color: rgba(255, 255, 255, 0.6);
+      }
+      .precios-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 26px;
+        margin-top: 52px;
+      }
+      .price-card {
+        position: relative;
+        background: rgba(255, 255, 255, 0.045);
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 20px;
+        padding: 38px 30px;
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        overflow: hidden;
+        isolation: isolate;
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform var(--transition),
+          border-color var(--transition),
+          background var(--transition);
+      }
+      .price-card::before {
+        content: "";
+        position: absolute;
+        top: -40%;
+        right: -30%;
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        z-index: -1;
+        filter: blur(10px);
+        opacity: 0.55;
+      }
+      .price-card--web::before {
+        background: radial-gradient(
+          circle,
+          rgba(96, 165, 250, 0.55),
+          transparent 70%
+        );
+      }
+      .price-card--ia::before {
+        background: radial-gradient(
+          circle,
+          rgba(34, 82, 204, 0.85),
+          transparent 70%
+        );
+      }
+      .price-card--saas::before {
+        background: radial-gradient(
+          circle,
+          rgba(52, 211, 153, 0.55),
+          transparent 70%
+        );
+      }
+      .price-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+      .price-card--ia {
+        background: rgba(34, 82, 204, 0.1);
+        border: 1px solid rgba(96, 148, 224, 0.35);
+        transform: scale(1.045);
+        box-shadow: 0 30px 60px rgba(4, 10, 26, 0.45);
+      }
+      .price-card--ia:hover {
+        transform: scale(1.045) translateY(-4px);
+      }
+      .price-tagline {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--accent);
+        color: #fff;
+        font-family: var(--display);
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 6px 16px;
+        border-radius: 0 0 10px 10px;
+      }
+      .price-name {
+        font-family: var(--display);
+        font-size: 18px;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 20px;
+        letter-spacing: -0.01em;
+      }
+      .price-card--ia .price-name {
+        margin-top: 12px;
+      }
+      .price-amount {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 36px;
+        line-height: 1;
+        color: #fff;
+        letter-spacing: -0.02em;
+      }
+      .price-amount sup {
+        font-size: 14px;
+        font-weight: 600;
+        margin-left: 3px;
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .price-unit {
+        font-size: 12.5px;
+        color: rgba(255, 255, 255, 0.5);
+        margin-top: 6px;
+      }
+      .price-amount2 {
+        font-family: var(--display);
+        font-weight: 700;
+        font-size: 21px;
+        color: #fff;
+        margin-top: 16px;
+      }
+      .price-amount2 sup {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.55);
+        margin-left: 2px;
+      }
+      .price-desc {
+        font-size: 13.5px;
+        color: rgba(255, 255, 255, 0.62);
+        line-height: 1.65;
+        margin: 20px 0 24px;
+      }
+      .price-checks {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+        margin-bottom: 30px;
+        flex: 1;
+      }
+      .price-checks li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 13.5px;
+        color: rgba(255, 255, 255, 0.86);
+        line-height: 1.4;
+      }
+      .price-checks li svg {
+        width: 16px;
+        height: 16px;
+        color: #8fc2f0;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .price-btn {
+        display: block;
+        text-align: center;
+        width: 100%;
+        font-family: var(--display);
+        font-size: 14.5px;
+        font-weight: 600;
+        padding: 13px 20px;
+        border-radius: 10px;
+        transition:
+          background var(--transition),
+          border-color var(--transition),
+          transform var(--transition);
+      }
+      .price-btn-outline {
+        border: 1.5px solid rgba(255, 255, 255, 0.22);
+        color: #fff;
+      }
+      .price-btn-outline:hover {
+        border-color: rgba(255, 255, 255, 0.45);
+        background: rgba(255, 255, 255, 0.06);
+        transform: translateY(-1px);
+      }
+      .price-btn-solid {
+        background: var(--accent);
+        color: #fff;
+      }
+      .price-btn-solid:hover {
+        background: var(--accent2);
+        transform: translateY(-1px);
+      }
+      .precios-note {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.4);
+        margin-top: 20px;
       }
 
       /* ── PROCESO ─────────────────────────────────────────── */
@@ -1172,19 +1475,21 @@
           grid-template-columns: 1fr;
           gap: 44px;
         }
-        .stack-inner {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-        .stack-logos {
-          justify-content: flex-start;
-        }
         .input-row {
           grid-template-columns: 1fr;
         }
         .proyectos-header {
           flex-direction: column;
           align-items: flex-start;
+        }
+        .precios-grid {
+          grid-template-columns: 1fr;
+        }
+        .price-card--ia {
+          transform: scale(1);
+        }
+        .price-card--ia:hover {
+          transform: translateY(-4px);
         }
       }
       @media (max-width: 560px) {
@@ -1197,6 +1502,10 @@
         .btn-primary,
         .btn-ghost {
           text-align: center;
+        }
+        .proyecto-card--marquee,
+        .t-card {
+          width: 82vw;
         }
       }
 
@@ -1224,7 +1533,7 @@
       <ul class="nav-links">
         <li><a href="#servicios">Servicios</a></li>
         <li><a href="#proyectos">Proyectos</a></li>
-        <li><a href="#stack">Stack</a></li>
+        <li><a href="#precios">Precios</a></li>
         <li><a href="#proceso">Proceso</a></li>
       </ul>
       <a href="#contacto" class="nav-cta">Hablemos →</a>
@@ -1381,153 +1690,13 @@
             tipo de problema que nos detenga.
           </p>
         </div>
-        <div class="proyectos-grid">
-          <!-- WC2026 — wide -->
-          <div class="proyecto-card proyecto-card-wide reveal">
-            <div class="proyecto-thumb thumb-wc2026">
-              <div class="wc2026-visual">
-                <div class="wc2026-matchup">
-                  <span class="wc2026-team">Portugal</span>
-                  <span class="wc2026-score"
-                    >0 <span class="vs">vs</span> 0</span
-                  >
-                  <span class="wc2026-team">Congo DR</span>
-                </div>
-                <div class="wc2026-prob-row">
-                  <div class="wc2026-bar">
-                    <div class="wc2026-bar-fill"></div>
-                  </div>
-                  <span class="wc2026-pct">43.3% draw</span>
-                </div>
-                <div class="wc2026-chips">
-                  <span class="wc2026-chip">1X2</span>
-                  <span class="wc2026-chip">Over 2.5</span>
-                  <span class="wc2026-chip">BTTS</span>
-                  <span class="wc2026-chip">+7 más</span>
-                </div>
-              </div>
-            </div>
-            <div class="proyecto-body">
-              <div class="proyecto-meta">
-                <span class="proyecto-cat">ML · Deportes · Python</span>
-                <span class="proyecto-badge badge-done">Entregado</span>
-              </div>
-              <div class="proyecto-name">Mundial 2026 — Predictor ML</div>
-              <p class="proyecto-desc">
-                Modelo de Machine Learning que predice probabilidades para 10
-                mercados de apuestas en cada partido del Mundial. Pipeline
-                completo: extracción de datos de 48 selecciones vía API-Football
-                → ingeniería de features con rolling averages → 11 modelos
-                LightGBM → CLI interactivo de predicción.
-              </p>
-              <div class="proyecto-tags">
-                <span class="proyecto-tag">LightGBM</span>
-                <span class="proyecto-tag">pandas</span>
-                <span class="proyecto-tag">API-Football</span>
-                <span class="proyecto-tag">Python 3.12</span>
-                <span class="proyecto-tag">CLI</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Ocasionale -->
-          <div class="proyecto-card reveal">
-            <div class="proyecto-thumb thumb-ocasionale">
-              <div class="ocasionale-visual">
-                <div class="ocasionale-bubble bot">
-                  ¡Hola! Escribe COTIZAR para comenzar.
-                </div>
-                <div class="ocasionale-bubble user">
-                  COTIZAR — necesito branding
-                </div>
-                <div class="ocasionale-typing">
-                  <div class="ocasionale-dot"></div>
-                  <div class="ocasionale-dot"></div>
-                  <div class="ocasionale-dot"></div>
-                </div>
-              </div>
-            </div>
-            <div class="proyecto-body">
-              <div class="proyecto-meta">
-                <span class="proyecto-cat">IA · WhatsApp · n8n</span>
-                <span class="proyecto-badge badge-done">Entregado</span>
-              </div>
-              <div class="proyecto-name">Agente IA — Ocasionale</div>
-              <p class="proyecto-desc">
-                Bot conversacional en WhatsApp para agencia creativa mexicana.
-                Captura prospectos, extrae datos con DeepSeek y los registra en
-                Google Sheets automáticamente.
-              </p>
-              <div class="proyecto-tags">
-                <span class="proyecto-tag">DeepSeek</span>
-                <span class="proyecto-tag">n8n</span>
-                <span class="proyecto-tag">Twilio</span>
-                <span class="proyecto-tag">Google Sheets</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Interplásticos -->
-          <div class="proyecto-card reveal">
-            <div class="proyecto-thumb thumb-interplasticos">
-              <div class="thumb-inner">
-                <span>Inter<span style="color: #4a90d9">plásticos</span></span>
-                Empaques Plásticos
-              </div>
-            </div>
-            <div class="proyecto-body">
-              <div class="proyecto-meta">
-                <span class="proyecto-cat">Web Corporativa</span>
-                <span class="proyecto-badge badge-dev">En desarrollo</span>
-              </div>
-              <div class="proyecto-name">Interplásticos</div>
-              <p class="proyecto-desc">
-                Sitio institucional para fabricante mexicano de empaques
-                plásticos de alta gama, con más de 50 años en el mercado.
-              </p>
-            </div>
-          </div>
-
-          <!-- MenuPulse -->
-          <div class="proyecto-card reveal">
-            <div class="proyecto-thumb thumb-menupulse">
-              <div class="thumb-inner"><span>Menu</span>Pulse</div>
-            </div>
-            <div class="proyecto-body">
-              <div class="proyecto-meta">
-                <span class="proyecto-cat">SaaS · Restaurantes</span>
-                <span class="proyecto-badge badge-dev">En desarrollo</span>
-              </div>
-              <div class="proyecto-name">MenuPulse</div>
-              <p class="proyecto-desc">
-                Plataforma que convierte el menú QR de un restaurante en datos
-                de venta accionables para aumentar el ticket promedio.
-              </p>
-            </div>
-          </div>
-
-          <!-- BusinessFlow AI -->
-          <div class="proyecto-card reveal">
-            <div class="proyecto-thumb thumb-businessflow">
-              <div class="thumb-inner">
-                <span>BusinessFlow</span>
-                AI
-              </div>
-            </div>
-            <div class="proyecto-body">
-              <div class="proyecto-meta">
-                <span class="proyecto-cat">SaaS · Profesionales</span>
-                <span class="proyecto-badge badge-dev">En desarrollo</span>
-              </div>
-              <div class="proyecto-name">BusinessFlow AI</div>
-              <p class="proyecto-desc">
-                Automatización de agenda, recordatorios y cobros para
-                profesionales con citas. WhatsApp + IA en un solo lugar.
-              </p>
-            </div>
-          </div>
+      </div>
+      <div class="marquee-wrap reveal">
+        <div class="marquee-track" id="proyectos-track">
+          <!-- content injected by JS (duplicated for seamless loop) -->
         </div>
-
+      </div>
+      <div class="container">
         <!-- Open banner -->
         <div class="open-banner reveal">
           <svg class="open-banner-icon" viewBox="0 0 36 36" fill="none">
@@ -1547,142 +1716,129 @@
       </div>
     </section>
 
+    <!-- TESTIMONIOS -->
+    <section id="testimonios">
+      <div class="container" style="margin-bottom: 40px">
+        <div class="section-label">Testimonios</div>
+        <h2 class="section-title reveal">
+          Resultados que hablan<br />por sí mismos.
+        </h2>
+      </div>
+      <div class="marquee-wrap reveal">
+        <div class="marquee-track slow" id="testimonios-track">
+          <!-- content injected by JS (duplicated for seamless loop) -->
+        </div>
+      </div>
+    </section>
+
     <div class="divider"></div>
 
-    <!-- STACK -->
-    <section id="stack">
+    <!-- PRECIOS -->
+    <section id="precios">
       <div class="container">
-        <div class="stack-inner">
-          <div class="stack-left">
-            <div class="section-label">Stack tecnológico</div>
-            <h2 class="section-title reveal">Tecnología<br />de producción.</h2>
-            <p
-              class="section-sub reveal"
-              style="font-size: 15px; margin-top: 12px"
-            >
-              Elegimos las herramientas por rendimiento y mantenibilidad, no por
-              tendencia.
+        <div class="section-label">Precios transparentes</div>
+        <h2 class="section-title reveal">Nuestros modelos<br />de inversión.</h2>
+        <p class="section-sub reveal" style="max-width: 460px">
+          Estructuras de costos claras. Sin sorpresas, enfocadas en el
+          retorno de inversión.
+        </p>
+
+        <div class="precios-grid">
+          <!-- Diseño Web -->
+          <div class="price-card price-card--web reveal">
+            <div class="price-name">Diseño Web</div>
+            <div class="price-amount">$2,999<sup>MXN</sup></div>
+            <div class="price-unit">por proyecto</div>
+            <p class="price-desc">
+              Páginas web y landing pages a la medida. Nos adaptamos al
+              alcance y funciones que tu negocio necesite.
             </p>
+            <ul class="price-checks">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Diseño 100% responsivo
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Adaptado a tu marca
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Mini-CRM: respuesta automática por correo para mejorar la atención a tus clientes
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Alcance flexible según tu proyecto
+              </li>
+            </ul>
+            <a href="#contacto" class="price-btn price-btn-outline">Cotizar mi página</a>
           </div>
-          <div class="stack-logos">
-            <div class="stack-item reveal">
-              <svg viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="4" fill="#F7DF1E" />
-                <text
-                  x="5"
-                  y="23"
-                  font-family="monospace"
-                  font-size="12"
-                  font-weight="bold"
-                  fill="#333"
-                >
-                  JS
-                </text>
-              </svg>
-              <span class="stack-item-name">JavaScript</span>
+
+          <!-- Agente de IA -->
+          <div class="price-card price-card--ia reveal">
+            <div class="price-tagline">Recomendado</div>
+            <div class="price-name">Agente de IA · WhatsApp</div>
+            <div class="price-amount">$2,499<sup>MXN</sup></div>
+            <div class="price-unit">instalación · pago único</div>
+            <div class="price-amount2">+ $299<sup>MXN/mes</sup></div>
+            <div class="price-unit">mantenimiento, soporte y monitoreo</div>
+            <p class="price-desc">
+              Un asistente con IA que responde, agenda y da seguimiento por
+              ti — en el mismo número que ya usas.
+            </p>
+            <ul class="price-checks">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Configuración a tu medida
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Integración WhatsApp / Web
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Responde y agenda 24/7
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Soporte técnico continuo
+              </li>
+            </ul>
+            <a href="#contacto" class="price-btn price-btn-solid">Agendar demo gratis</a>
+          </div>
+
+          <!-- SaaS / A Medida -->
+          <div class="price-card price-card--saas reveal">
+            <div class="price-name">SaaS / A Medida</div>
+            <div class="price-amount" style="font-size: 24px">
+              Cotización<br />personalizada
             </div>
-            <div class="stack-item reveal">
-              <svg viewBox="0 0 32 32" fill="none">
-                <circle
-                  cx="16"
-                  cy="16"
-                  r="15"
-                  fill="#000"
-                  stroke="rgba(0,0,0,0.15)"
-                  stroke-width="1"
-                />
-                <path
-                  d="M10 22V10l12 12V10"
-                  stroke="white"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              <span class="stack-item-name">Next.js</span>
-            </div>
-            <div class="stack-item reveal">
-              <svg viewBox="0 0 32 32" fill="none">
-                <circle cx="16" cy="16" r="3" fill="#61DAFB" />
-                <ellipse
-                  cx="16"
-                  cy="16"
-                  rx="14"
-                  ry="5.5"
-                  stroke="#61DAFB"
-                  stroke-width="1.2"
-                />
-                <ellipse
-                  cx="16"
-                  cy="16"
-                  rx="14"
-                  ry="5.5"
-                  stroke="#61DAFB"
-                  stroke-width="1.2"
-                  transform="rotate(60 16 16)"
-                />
-                <ellipse
-                  cx="16"
-                  cy="16"
-                  rx="14"
-                  ry="5.5"
-                  stroke="#61DAFB"
-                  stroke-width="1.2"
-                  transform="rotate(120 16 16)"
-                />
-              </svg>
-              <span class="stack-item-name">React</span>
-            </div>
-            <div class="stack-item reveal">
-              <svg viewBox="0 0 32 32" fill="none">
-                <path
-                  d="M16 4C10 4 9 7 9 10v3h7v1H7C4 14 2 16 2 19s2 5 5 5h2v-3c0-3 1-5 7-5s7 2 7 5v3h2c3 0 5-2 5-5s-2-5-5-5h-7v-1h7v-3C25 7 22 4 16 4z"
-                  fill="#3776AB"
-                />
-                <circle cx="12" cy="10" r="1.2" fill="#FFD43B" />
-                <circle cx="20" cy="22" r="1.2" fill="#FFD43B" />
-              </svg>
-              <span class="stack-item-name">Python</span>
-            </div>
-            <div class="stack-item reveal">
-              <svg viewBox="0 0 32 32" fill="none">
-                <path
-                  d="M12 24s-2 1 1 1.5c4 .6 6 .5 10-.5 0 0 1 .6.3 1C18 27 8 26.5 12 24z"
-                  fill="#EA2D2E"
-                />
-                <path
-                  d="M11 21s-2 1.5 1 1.8c4 .5 7 .5 12-.7 0 0 .8.8-.8 1.2C17 24.5 6 24 11 21z"
-                  fill="#EA2D2E"
-                />
-                <path
-                  d="M18 4s3 3-2.8 7.5C11 15 14 17 15 19c-3-2.7-5-5 .5-8.8C20 6.7 18 4 18 4z"
-                  fill="#EA2D2E"
-                />
-                <path
-                  d="M13 27s1.5 1.2-1.7 2.2c-6 1.8-15 .5-11.5-1.7 1-.7 2.5-1 4-1.2-1 .7-1.7 1.5.5 1.7C10 29 20 28 13 27z"
-                  fill="#5382A1"
-                />
-              </svg>
-              <span class="stack-item-name">Java</span>
-            </div>
-            <div class="stack-item reveal">
-              <svg viewBox="0 0 32 32" fill="none">
-                <rect width="32" height="32" rx="4" fill="#1a1a2e" />
-                <text
-                  x="4"
-                  y="22"
-                  font-family="monospace"
-                  font-size="10"
-                  font-weight="bold"
-                  fill="#4DDBA0"
-                >
-                  n8n
-                </text>
-              </svg>
-              <span class="stack-item-name">n8n</span>
-            </div>
+            <div class="price-unit">según alcance del proyecto</div>
+            <p class="price-desc">
+              Desarrollo de plataformas complejas, dashboards analíticos y
+              flujos de hiperautomatización.
+            </p>
+            <ul class="price-checks">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Arquitectura escalable
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Integraciones API de terceros
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Paneles de administración
+              </li>
+            </ul>
+            <a href="#contacto" class="price-btn price-btn-outline">Cotizar proyecto</a>
           </div>
         </div>
+        <p class="precios-note">
+          * Plataforma de mensajería (Twilio) se factura directo al cliente.
+          Sin letra chica.
+        </p>
       </div>
     </section>
 
@@ -1764,11 +1920,7 @@
             <div class="contacto-card">
               <div class="contacto-card-title">Cuéntanos tu proyecto</div>
               <p class="contacto-card-sub">Respondemos en menos de 24 horas.</p>
-              <form
-                id="contact-form"
-                action="https://formspree.io/f/xbdvynnq"
-                method="POST"
-              >
+              <form id="contact-form">
                 <div class="input-row">
                   <div class="input-group">
                     <label for="name">Nombre</label>
@@ -1861,6 +2013,161 @@
     </footer>
 
     <script>
+      // ---- Proyectos marquee content ----
+      const proyectosData = [
+        {
+          cat: "ML · Deportes · Python",
+          badge: "badge-done",
+          badgeText: "Entregado",
+          name: "Mundial 2026 — Predictor ML",
+          desc: "Modelo de Machine Learning que predice probabilidades para 10 mercados de apuestas en cada partido del Mundial. Extracción de datos vía API-Football → 11 modelos LightGBM → CLI interactivo.",
+          thumb: `<div class="proyecto-thumb thumb-wc2026">
+            <div class="wc2026-visual">
+              <div class="wc2026-matchup">
+                <span class="wc2026-team">Portugal</span>
+                <span class="wc2026-score">0 <span class="vs">vs</span> 0</span>
+                <span class="wc2026-team">Congo DR</span>
+              </div>
+              <div class="wc2026-prob-row">
+                <div class="wc2026-bar"><div class="wc2026-bar-fill"></div></div>
+                <span class="wc2026-pct">43.3% draw</span>
+              </div>
+              <div class="wc2026-chips">
+                <span class="wc2026-chip">1X2</span>
+                <span class="wc2026-chip">Over 2.5</span>
+                <span class="wc2026-chip">BTTS</span>
+                <span class="wc2026-chip">+7 más</span>
+              </div>
+            </div>
+          </div>`,
+          tags: ["LightGBM", "pandas", "API-Football", "Python 3.12", "CLI"],
+        },
+        {
+          cat: "IA · WhatsApp · n8n",
+          badge: "badge-done",
+          badgeText: "Entregado",
+          name: "Agente IA — Ocasionale",
+          desc: "Bot conversacional en WhatsApp para agencia creativa mexicana. Captura prospectos, extrae datos con DeepSeek y los registra en Google Sheets automáticamente.",
+          thumb: `<div class="proyecto-thumb thumb-ocasionale">
+            <div class="ocasionale-visual">
+              <div class="ocasionale-bubble bot">¡Hola! Escribe COTIZAR para comenzar.</div>
+              <div class="ocasionale-bubble user">COTIZAR — necesito branding</div>
+              <div class="ocasionale-typing">
+                <div class="ocasionale-dot"></div>
+                <div class="ocasionale-dot"></div>
+                <div class="ocasionale-dot"></div>
+              </div>
+            </div>
+          </div>`,
+          tags: ["DeepSeek", "n8n", "Twilio", "Google Sheets"],
+        },
+        {
+          cat: "Web Corporativa",
+          badge: "badge-dev",
+          badgeText: "En desarrollo",
+          name: "Interplásticos",
+          desc: "Sitio institucional para fabricante mexicano de empaques plásticos de alta gama, con más de 50 años en el mercado.",
+          thumb: `<div class="proyecto-thumb thumb-interplasticos">
+            <div class="thumb-inner">
+              <span>Inter<span style="color:#4a90d9">plásticos</span></span>
+              Empaques Plásticos
+            </div>
+          </div>`,
+          tags: [],
+        },
+        {
+          cat: "SaaS · Restaurantes",
+          badge: "badge-dev",
+          badgeText: "En desarrollo",
+          name: "MenuPulse",
+          desc: "Plataforma que convierte el menú QR de un restaurante en datos de venta accionables para aumentar el ticket promedio.",
+          thumb: `<div class="proyecto-thumb thumb-menupulse">
+            <div class="thumb-inner"><span>Menu</span>Pulse</div>
+          </div>`,
+          tags: [],
+        },
+        {
+          cat: "SaaS · Profesionales",
+          badge: "badge-dev",
+          badgeText: "En desarrollo",
+          name: "BusinessFlow AI",
+          desc: "Automatización de agenda, recordatorios y cobros para profesionales con citas. WhatsApp + IA en un solo lugar.",
+          thumb: `<div class="proyecto-thumb thumb-businessflow">
+            <div class="thumb-inner"><span>BusinessFlow</span>AI</div>
+          </div>`,
+          tags: [],
+        },
+      ];
+
+      const proyectosTrack = document.getElementById("proyectos-track");
+      const proyectosHtml = proyectosData
+        .map(
+          (p) => `
+        <div class="proyecto-card proyecto-card--marquee">
+          ${p.thumb}
+          <div class="proyecto-body">
+            <div class="proyecto-meta">
+              <span class="proyecto-cat">${p.cat}</span>
+              <span class="proyecto-badge ${p.badge}">${p.badgeText}</span>
+            </div>
+            <div class="proyecto-name">${p.name}</div>
+            <p class="proyecto-desc">${p.desc}</p>
+            ${
+              p.tags.length
+                ? `<div class="proyecto-tags">${p.tags
+                    .map((t) => `<span class="proyecto-tag">${t}</span>`)
+                    .join("")}</div>`
+                : ""
+            }
+          </div>
+        </div>`,
+        )
+        .join("");
+      proyectosTrack.innerHTML = proyectosHtml + proyectosHtml;
+
+      // ---- Testimonios marquee content ----
+      const testimoniosData = [
+        {
+          name: "Alejandra Martínez",
+          role: "Ocasionale",
+          quote:
+            "Esta es una evolución del contacto humano. Nos va a ayudar a automatizar cosas que hoy nos quitan tiempo.",
+        },
+        {
+          name: "Dr. Carlos Rodarte",
+          role: "Laboratorio Clínico",
+          quote:
+            "Hemos ganado inmediatez, lo que nos ha dado más cercanía con el cliente.",
+        },
+        {
+          name: "Anónimo",
+          role: "Mundial 2026 — Predictor ML",
+          quote:
+            "Tus predicciones me sirvieron para under de goles, de corners y tarjetas, ¡gracias!",
+        },
+      ];
+      const testimoniosTrack = document.getElementById("testimonios-track");
+      const star = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6L22 9.3l-5 4.9 1.2 7-6.2-3.6L5.8 21.2l1.2-7-5-4.9 7.1-.7z"/></svg>`;
+      const testimoniosHtml = testimoniosData
+        .map(
+          (t) => `
+        <div class="t-card">
+          <div class="t-person">
+            <div class="t-avatar">${t.name
+              .split(" ")
+              .map((w) => w[0])
+              .slice(0, 2)
+              .join("")}</div>
+            <div><b>${t.name}</b><span>${t.role}</span></div>
+          </div>
+          <div class="t-stars">${star}${star}${star}${star}${star}</div>
+          <p class="t-quote">"${t.quote}"</p>
+          <div class="t-quote-ico">"</div>
+        </div>`,
+        )
+        .join("");
+      testimoniosTrack.innerHTML = testimoniosHtml + testimoniosHtml;
+
       // Scroll reveal
       const observer = new IntersectionObserver(
         (entries) => {
@@ -1887,22 +2194,28 @@
         nav.classList.toggle("scrolled", window.scrollY > 40);
       });
 
-      // Formspree async submit
+      // Contact form — JSON submit to n8n webhook
       const form = document.getElementById("contact-form");
       const submitBtn = document.getElementById("submit-btn");
       const formMsg = document.getElementById("form-message");
+      const WEBHOOK_URL =
+        "https://n8n.roncom.com.mx/webhook/2480cee0-ef5d-4129-af24-a6fbfa439c7e";
 
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
+        const data = Object.fromEntries(new FormData(form).entries());
+        data.origen = "landing-roncom";
+        data.fecha = new Date().toISOString();
+
         submitBtn.disabled = true;
         submitBtn.textContent = "Enviando…";
         formMsg.className = "form-message";
 
         try {
-          const res = await fetch(form.action, {
+          const res = await fetch(WEBHOOK_URL, {
             method: "POST",
-            body: new FormData(form),
-            headers: { Accept: "application/json" },
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
           });
           if (res.ok) {
             formMsg.className = "form-message success";
