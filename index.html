@@ -2036,7 +2036,7 @@
                     <input
                       type="text"
                       id="name"
-                      name="name"
+                      name="nombre"
                       placeholder="Tu nombre"
                       required
                     />
@@ -2065,7 +2065,7 @@
                     <input
                       type="email"
                       id="email"
-                      name="email"
+                      name="correo"
                       placeholder="correo@empresa.com"
                       required
                     />
@@ -2323,7 +2323,7 @@
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(form).entries());
-        data.origen = "landing-roncom";
+        data.medio = "landing-roncom";
         data.fecha = new Date().toISOString();
 
         submitBtn.disabled = true;
