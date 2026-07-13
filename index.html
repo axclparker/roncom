@@ -1524,6 +1524,19 @@
       }
     </style>
     <link rel="icon" type="image/svg+xml" href="media/4.png" />
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=AW-18304309541"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "AW-18304309541");
+    </script>
   </head>
   <body>
     <!-- NAV -->
@@ -2090,6 +2103,7 @@
                 target="_blank"
                 rel="noopener"
                 class="btn-whatsapp"
+                onclick="trackWhatsappConversion()"
               >
                 <svg
                   width="18"
@@ -2313,6 +2327,31 @@
         nav.classList.toggle("scrolled", window.scrollY > 40);
       });
 
+      // ---- Google Ads: tracking de conversion "Contacto" ----
+      // Se usa tanto para el clic al boton de WhatsApp como para el envio
+      // exitoso del formulario. El click al WhatsApp abre en target="_blank"
+      // (nueva pestaña), asi que no hace falta pausar la navegacion.
+      function trackWhatsappConversion() {
+        if (typeof gtag === "function") {
+          gtag("event", "conversion", {
+            send_to: "AW-18304309541/d0nUCKj1u88cEKWylphE",
+            value: 1.0,
+            currency: "MXN",
+          });
+        }
+        return true; // deja que el link abra WhatsApp normalmente
+      }
+
+      function trackFormConversion() {
+        if (typeof gtag === "function") {
+          gtag("event", "conversion", {
+            send_to: "AW-18304309541/d0nUCKj1u88cEKWylphE",
+            value: 1.0,
+            currency: "MXN",
+          });
+        }
+      }
+
       // Contact form — JSON submit to n8n webhook
       const form = document.getElementById("contact-form");
       const submitBtn = document.getElementById("submit-btn");
@@ -2341,6 +2380,7 @@
             formMsg.textContent =
               "¡Mensaje enviado! Te contactamos en menos de 24 horas.";
             form.reset();
+            trackFormConversion();
           } else {
             throw new Error();
           }
